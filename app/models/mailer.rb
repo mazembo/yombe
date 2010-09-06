@@ -1,6 +1,6 @@
 class Mailer < ActionMailer::Base
   
-  default_url_options[:host] = CONFIG['domain'].gsub('http://', '').gsub('https://', '')
+#  default_url_options[:host] = CONFIG['domain'].gsub('http://', #'').gsub('https://', '')
   
   def subscription(subscribers, topic, post)
     subject       "New post in #{topic}"
