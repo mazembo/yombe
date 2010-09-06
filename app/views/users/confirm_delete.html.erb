@@ -1,0 +1,12 @@
+<%= error_messages_for :user %>
+<% form_tag user_path(@user), :method => :delete do %>
+  <div class="box" id="box-users-confirmation">
+    <span class="top"><%=t :delete_user %></span>
+      <p><%=t :delete_user_warning, :scope => :messages %></p>
+      <p><label for="confirm"><%=t :confirm_delete_user, :scope => :messages %> <u><%=h @user %></u></label>: <%= check_box_tag :confirm %></p>
+      <p>
+        <%= submit_tag I18n.t(:delete_user), :disable_with => I18n.t(:delete_user) %>&nbsp;
+        <%= link_to I18n.t(:cancel), @user %>
+      </p>
+  </div>
+<% end %>

@@ -1,0 +1,23 @@
+<%= error_messages_for :forum %>
+<div class="box" id="box-categories-new">
+  <% form_for @forum do |f| %>
+    <span class="top"><%=t :edit_forum %></span>
+    <p class="label"><label for="forum_name"><%=t :name %></label></p>
+    <p><%= f.text_field :name, :class => 'text-field' %></p>
+    <p class="label"><label for="forum_description"><%=t :description %></label></p>
+    <p><%= f.text_field :description, :class => 'text-field' %></p>
+    <p>
+      <%= 
+        @all_categories = Category.find(:all, :order => "name") 
+        f.collection_select(:category_id, @all_categories, :id, :name)       
+      %>
+    </p>
+    <p class="label"><label for="forum_position"><%=t :position %></label></p>
+    <p><%= f.text_field :position, :style => 'width:5%;' %></p>
+    <p>
+      <%= submit_tag I18n.t(:save_changes), :disable_with => I18n.t(:save_changes) %>&nbsp;
+      <%= link_to I18n.t(:delete), confirm_delete_forum_path %> &nbsp; 
+      <%= link_to I18n.t(:cancel), @forum %>
+    </p>
+  <% end %>
+</div>

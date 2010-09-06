@@ -1,0 +1,12 @@
+<%= error_messages_for :forum %>
+<% form_tag forum_path(@forum), :method => :delete do %>
+  <div class="box" id="box-forums-confirmation">
+    <span class="top"><%=t :delete_forum %></span>
+      <p><%=t :delete_forum_warning, :scope => :messages %></p>
+      <p><label for="confirm"><%=t :confirm_delete_forum, :scope => :messages %> <u><%= h(@forum) %></u></label>: <%= check_box_tag :confirm %></p>
+      <p>
+        <%= submit_tag I18n.t(:delete_forum), :disable_with => I18n.t(:delete_forum) %>&nbsp;
+        <%= link_to I18n.t(:cancel), @forum %>
+      </p>
+  </div>
+<% end %>

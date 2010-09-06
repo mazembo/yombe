@@ -1,0 +1,57 @@
+<div class="info-left">
+  <span class="title"><%=t :forum %></span>
+  <span class="detail">&nbsp;|&nbsp;
+    <%= t_no_of :no_of_posts, (@posts_count || 0) %> in 
+    <%= t_no_of :no_of_topics, (@topics_count || 0) %>
+  </span>
+</div>
+<div class="info-right">
+  <span class="title">&nbsp;</span>
+  <span class="detail"><%=t :view_all %> <%= link_to I18n.t(:posts), posts_path %> <%=t :or %> <%= link_to I18n.t(:topics)+' &raquo;', topics_path %></span>
+</div>
+<div class="clear"> </div>
+
+<% for category in @categories %>
+    <table cellspacing="0" class="forums-index">
+      <thead>
+        <tr>
+          <th colspan="5"><%= link_to h(category), category %></th>
+        </tr>
+        <tr class="forums-list">
+          <th class="tcl" colspan="2"><%=t :forums %></th>
+          <th class="tcm"><%=t :topics %></th>
+          <th class="tcm"><%=t :posts %></th>
+          <th class="tcr"><%=t :activity %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for forum in category.forums %>
+          <tr>
+            <td class="tci">
+              <% if forum.last_topic.nil? %>
+                <%= icon_for(nil) %>
+              <% else %>
+                <%= icon_for(forum.last_topic.last_post) %>
+              <% end %>
+            </td>
+            <td class="tcl">
+              <span class="forum-name"><%= link_to h(forum), forum %></span>
+              <br /><%=h forum.description %>
+            </td>
+            <td class="tcm"><%= number_with_delimiter(forum.topics_count) %></td>
+            <td class="tcm"><%= number_with_delimiter(forum.posts_count) %></td>
+            <td class="tcr">
+              <% if forum.posts_count > 0 %>
+                <% if logged_in? %>
+                  <%= link_to time_ago_or_time_stamp(forum.last_topic.last_post_at), show_new_topic_path(forum.last_topic) %>
+                <% else %>
+                  <%= time_ago_or_time_stamp(forum.last_topic.last_post_at) %>
+                <% end %>
+                <br /> <%=t :by %> <%=h forum.last_topic.last_poster %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>  
+    </table>
+<% end %>

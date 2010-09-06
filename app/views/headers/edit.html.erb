@@ -1,0 +1,22 @@
+<%= error_messages_for :header %>
+
+<div class="info-left">
+  <span class="title"><%=h @header %></span>
+  <span class="detail">by <%= link_to h(@header.user), @header.user %></span>
+</div>
+<div class="clear"> </div>
+
+<% form_for @header do |f| -%>
+  <div class="box" id="box-headers-edit">
+    <span class="top"><%=t :edit_header %></span>
+    <p class="label"><label for="header_description"><%=t :description %></label></p>
+    <p><%= f.text_area :description, :rows => '4', :class => 'text-field' %></p>
+    <p>
+      <%= submit_tag I18n.t(:save_changes), :disable_with => I18n.t(:save_changes) %>&nbsp;
+      <%= link_to I18n.t(:delete), @header, :confirm => I18n.t(:are_you_sure), :method => :delete %> &nbsp;
+      <%= link_to I18n.t(:cancel), @header %>
+    </p>
+  </div>
+<% end %>
+
+<%= javascript_tag "$('header_description').focus();" %>

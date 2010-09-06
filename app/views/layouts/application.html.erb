@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <meta name="generator" content="http://github.com/trevorturk/eldorado/" />
+  <meta name="description" content="<%=h page_title -%>" />
+  <title><%=h page_title -%></title>
+  <%= render :file => 'shared/rss' unless @settings.private? %>
+  <%= javascript_include_tag "prototype", "audio_player", "calendar_date_select", "prototip", "highlight", :cache => true %>
+  <%= favicon_tag %>
+  <%= header_css %>
+  <%= theme_css %>
+  <script type="text/javascript">
+    hljs.initHighlightingOnLoad();
+  </script>
+</head>
+<body>
+  <div class="wrapper">
+    <%= render :file => 'shared/reminders' unless locked_out? -%>
+    <div class="header">
+      <% if @settings.clickable_header %>
+        <a href="<%= root_path %>"><img src="<%= header_image_path %>"/></a>
+      <% else %>
+        <h1><%= link_to h(@settings.title), root_path -%></h1>
+        <div class="tagline"><%=h @settings.tagline -%></div>
+      <% end %>
+      <%= render :file => 'shared/tabs' unless locked_out? -%>
+    </div>
+    <div class="content">
+      <%= render :file => 'shared/nav' %>
+      <div class="announcement"><%= @settings.announcement if current_controller == 'home' -%></div>
+      <%= render :partial => 'search/form.html.erb' if current_controller == 'search' -%>
+      <%= render :file => 'shared/flash' -%>
+      <%= yield %>
+      <%= render :file => 'shared/nav2' -%>
+      <%= render :file => 'shared/stats' unless locked_out? -%>
+    </div>
+    <div class="footer"><%= @settings.footer -%></div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<%= error_messages_for :category %>
+<% @category = Category.new unless @category %>
+<% form_for @category do |f| %>
+  <div class="box" id="box-categories-new">
+    <span class="top"><%=t :new_category %></span>
+    <p class="label"><label for="category_name"><%=t :name %></label></p>
+    <p><%= f.text_field :name, :class => 'text-field' %></p>
+    <p class="label"><label for="category_position"><%=t :position %></label></p>
+    <p><%= f.text_field :position, :style => 'width:5%;' %></p>
+    <p>
+      <%= submit_tag I18n.t(:add_category), :disable_with => I18n.t(:add_category) %>&nbsp;
+      <%= link_to I18n.t(:cancel), forum_root_path %>
+    </p>
+</div>
+<% end %>
+<%= javascript_tag "$('category_name').focus();" %>
